@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Test404Group</string>
+
+    <string name="navigation_drawer_open">Открыть ящик</string>
+    <string name="navigation_drawer_close">Закрыть ящик</string>
+    <string name="text_base">Для генерации точек запустите сервис из ящика</string>
+    <string name="menu_title_graph">График</string>
+    <string name="menu_title_start_service">Старт сервиса</string>
+
+
+</resources>
