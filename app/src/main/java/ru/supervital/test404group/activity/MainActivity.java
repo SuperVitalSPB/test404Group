@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity
                         Log.d(TAG, "STATUS_FINISH");
                         break;
                     case STATUS_WORK:
-                        Log.d(TAG, "STATUS_WORK: " + new Point(new Date((intent.getLongExtra(PARAM_TIME, 0))*1000L),
-                                            intent.getDoubleExtra(PARAM_YVAL, 0)
+                        Log.d(TAG, "STATUS_WORK: " + new Point((Date) intent.getExtras().get(PARAM_TIME),
+                                                                      intent.getDoubleExtra(PARAM_YVAL, 0)
                                         ).toString());
                         break;
                 }

@@ -6,6 +6,7 @@
     <string name="text_base">Для генерации точек запустите сервис из ящика</string>
     <string name="menu_title_graph">График</string>
     <string name="menu_title_start_service">Старт сервиса</string>
+    <string name="service_description">сервис для генерации точек на графике</string>
 
 
 </resources>

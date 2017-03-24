@@ -1,10 +1,13 @@
 package ru.supervital.test404group.service;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -37,7 +40,7 @@ public class PointsService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "Service onStartCommand");
 
-        MyRun mr = new MyRun(startId, new Date(9999_9999_99L), Double.valueOf(100));
+        MyRun mr = new MyRun(startId, new Date(), Double.valueOf(100));
         es.execute(mr);
 
         return super.onStartCommand(intent, flags, startId);
@@ -67,14 +70,29 @@ public class PointsService extends Service {
                 // сообщаем о старте задачи
                 intent.putExtra(MainActivity.PARAM_STATUS, MainActivity.STATUS_START);
                 sendBroadcast(intent);
+                Calendar calendar = Calendar.getInstance();
+                boolean stop_work = false;
+                Date stopTime = new Date();
+                calendar.setTime(stopTime);
+                calendar.add(Calendar.MINUTE, 10);
+                stopTime = calendar.getTime();
 
-                while (true) {
+
+                while (!stop_work) {
+
+                    calendar.setTime(date);
+                    calendar.add(Calendar.SECOND, 1);
+                    date = calendar.getTime();
+
                     intent.putExtra(MainActivity.PARAM_STATUS, MainActivity.STATUS_WORK)
-                            .putExtra(MainActivity.PARAM_TIME, date)
+                            .putExtra(MainActivity.PARAM_TIME, date )
                             .putExtra(MainActivity.PARAM_YVAL, yVal+ Long.valueOf(new Random().nextInt()));
                     sendBroadcast(intent);
-                    TimeUnit.SECONDS.sleep(10);
+                    TimeUnit.SECONDS.sleep(1);
+
+                    stop_work = date.getTime() > stopTime.getTime();
                 }
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

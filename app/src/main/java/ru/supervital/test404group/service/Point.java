@@ -17,4 +17,9 @@ public class Point implements Serializable {
         this.date = date;
         this.rate = rate;
     }
+
+    @Override
+    public String toString(){
+        return "created Point: " + date.toString() +":" +rate.toString();
+    }
 }
