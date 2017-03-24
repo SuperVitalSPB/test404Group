@@ -1,5 +1,6 @@
 package ru.supervital.test404group.activity;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -61,9 +62,8 @@ public class MainActivity extends AppCompatActivity
 
         InitBroadCast();
 
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
-
-
+        onNavigationItemSelected(navigationView.getMenu().getItem(
+                isServiceRunning(PointsService.class) ? 1 : 0));
     }
 
     private void InitBroadCast(){
@@ -139,6 +139,16 @@ public class MainActivity extends AppCompatActivity
         Intent intent;
         intent = new Intent(this, PointsService.class);
         startService(intent);
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
